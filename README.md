@@ -21,7 +21,7 @@ Cada semana el agente crece: empezamos con un primer copiloto con tools, y termi
 | # | Fecha | Episodio | Qué construimos | Nivel | Video |
 |---|-------|----------|-----------------|-------|-------|
 | 1 | Ago 26 | **El primer copiloto (con el pie en alto)** | Agente que responde preguntas sobre código + tools con `@tool` (leer archivo, listar repo) + set básico de evaluación. Setup del repo y del proyecto. | 200→300 | [▶️ Ver live](https://www.youtube.com/live/sOdSN-Of5gE) |
-| 2 | Sep 2 | **Un copiloto que recuerda** | Memoria del contexto del repo y de la conversación: session managers, persistencia entre sesiones, poda de context window. | 300 | 🔴 Próximamente |
+| 2 | Sep 2 | **Un copiloto que recuerda** | Memoria del contexto del repo y de la conversación: session managers, persistencia entre sesiones, poda de context window. | 300 | [▶️ Ver live](https://www.youtube.com/live/ZVgf1NWOCE4) |
 | 3 | Sep 9 | **Que entienda todo el repo** | Ingerir el codebase como base de conocimiento (RAG) y exponer el copiloto como servicio con FastAPI (streaming, errores, timeouts). | 300 | 🔴 Próximamente |
 | 4 | Sep 16 | **De uno a muchos: equipo de agentes** | Dividir en agentes especializados (review / seguridad / documentación); agents-as-tools vs. graph vs. swarm; estado compartido y manejo de fallos. | 300 | 🔴 Próximamente |
 | 5 | Sep 23 | **Un copiloto con frenos** | Guardrails de input/output: no filtrar secretos ni credenciales, detección de PII, mantenerse en el scope del repo; Amazon Bedrock Guardrails. | 300 | 🔴 Próximamente |
@@ -41,9 +41,10 @@ Una carpeta por episodio. El agente crece semana a semana; cada carpeta es autoc
 
 ```
 Copiloto-de-Codigo/
-├── README.md                    # esta página: historia + roadmap + links
-├── Ep.1 - El primer Copiloto/   # Semana 1 — primer agente con tools + evaluación
-└── ...                          # las siguientes semanas se agregan aquí
+├── README.md                       # esta página: historia + roadmap + links
+├── Ep.1 - El primer Copiloto/      # Semana 1 — primer agente con tools + evaluación
+├── Ep.2 - Un copiloto que recuerda/ # Semana 2 — memoria de sesión, persistencia y poda
+└── ...                             # las siguientes semanas se agregan aquí
 ```
 
 ## Formato de cada sesión (~75 min)
@@ -64,6 +65,13 @@ El arranque de la serie: montamos el proyecto y construimos un Copiloto de Códi
 
 - 📺 **Video:** https://www.youtube.com/live/sOdSN-Of5gE
 - 📂 **Código:** [`Ep.1 - El primer Copiloto/`](./Ep.1%20-%20El%20primer%20Copiloto/)
+
+### Episodio 2 — Un copiloto que recuerda
+
+Le damos memoria al copiloto como decisión de arquitectura: memoria de sesión (el hilo actual), persistencia entre ejecuciones por `session_id`, y poda del context window con estrategia configurable (truncado o resumen), con conciencia de costo. Todo apoyado en las primitivas de sesión de Strands, con una capa de abstracción que permite cambiar el backend (JSON hoy; SQLite/DynamoDB/Redis después).
+
+- 📺 **Video:** https://www.youtube.com/live/ZVgf1NWOCE4
+- 📂 **Código:** [`Ep.2 - Un copiloto que recuerda/`](./Ep.2%20-%20Un%20copiloto%20que%20recuerda/)
 
 ---
 

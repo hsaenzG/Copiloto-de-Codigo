@@ -21,19 +21,19 @@ Cada semana el agente crece: empezamos con un primer copiloto con tools, y termi
 | # | Fecha | Episodio | Qué construimos | Nivel | Video |
 |---|-------|----------|-----------------|-------|-------|
 | 1 | Ago 26 | **El primer copiloto (con el pie en alto)** | Agente que responde preguntas sobre código + tools con `@tool` (leer archivo, listar repo) + set básico de evaluación. Setup del repo y del proyecto. | 200→300 | [▶️ Ver live](https://www.youtube.com/live/sOdSN-Of5gE) |
-| 2 | Sep 2 | **Un copiloto que recuerda** | Memoria del contexto del repo y de la conversación: session managers, persistencia entre sesiones, poda de context window. | 300 | [▶️ Ver live](https://www.youtube.com/live/ZVgf1NWOCE4) |
-| 3 | Sep 9 | **Que entienda todo el repo** | Ingerir el codebase como base de conocimiento (RAG) y exponer el copiloto como servicio con FastAPI (streaming, errores, timeouts). | 300 | 🔴 Próximamente |
-| 4 | Sep 16 | **De uno a muchos: equipo de agentes** | Dividir en agentes especializados (review / seguridad / documentación); agents-as-tools vs. graph vs. swarm; estado compartido y manejo de fallos. | 300 | 🔴 Próximamente |
-| 5 | Sep 23 | **Un copiloto con frenos** | Guardrails de input/output: no filtrar secretos ni credenciales, detección de PII, mantenerse en el scope del repo; Amazon Bedrock Guardrails. | 300 | 🔴 Próximamente |
-| 6 | Sep 30 | **¿Qué está haciendo mi copiloto?** | Instrumentar el agent loop con OpenTelemetry; métricas de tokens/latencia/éxito; dashboards y alertas en CloudWatch. | 300 | 🔴 Próximamente |
-| 7 | Oct 7 | **¿Revisa bien de verdad?** | Benchmarks de las respuestas y reviews del copiloto, LLM-as-judge, regression testing e integración en CI/CD. | 300 | 🔴 Próximamente |
-| 8 | Oct 14 | **A producción (season finale)** | Deploy del copiloto como servicio gestionado en Amazon Bedrock AgentCore: auto-scaling, versionado, human-in-the-loop. | 300 | 🔴 Próximamente |
+| 2 | Sep 9 | **Un copiloto que recuerda** | Memoria del contexto del repo y de la conversación: session managers, persistencia entre sesiones, poda de context window. | 300 | [▶️ Ver live](https://www.youtube.com/live/ZVgf1NWOCE4) |
+| 3 | Sep 16 | **Que entienda todo el repo** | Ingerir el codebase como base de conocimiento (RAG) y exponer el copiloto como servicio con FastAPI (streaming, errores, timeouts). | 300 | [▶️ Ver live](https://www.youtube.com/live/7Y6rhrgZT2s) |
+| 4 | Oct 7 | **De uno a muchos: equipo de agentes** | Dividir en agentes especializados (review / seguridad / documentación); agents-as-tools vs. graph vs. swarm; estado compartido y manejo de fallos. | 300 | 🔴 Próximamente |
+| 5 | Oct 14 | **Un copiloto con frenos** | Guardrails de input/output: no filtrar secretos ni credenciales, detección de PII, mantenerse en el scope del repo; Amazon Bedrock Guardrails. | 300 | 🔴 Próximamente |
+| 6 | Oct 21 | **¿Qué está haciendo mi copiloto?** | Instrumentar el agent loop con OpenTelemetry; métricas de tokens/latencia/éxito; dashboards y alertas en CloudWatch. | 300 | 🔴 Próximamente |
+| 7 | Oct 28 | **¿Revisa bien de verdad?** | Benchmarks de las respuestas y reviews del copiloto, LLM-as-judge, regression testing e integración en CI/CD. | 300 | 🔴 Próximamente |
+| 8 | Nov 4 | **A producción (season finale)** | Deploy del copiloto como servicio gestionado en Amazon Bedrock AgentCore: auto-scaling, versionado, human-in-the-loop. | 300 | 🔴 Próximamente |
 
 ### Episodio bonus (opcional)
 
-| Bonus | Episodio | Qué construimos | Video |
-|-------|----------|-----------------|-------|
-| ⭐ | **El copiloto como servidor MCP** | Exponer las tools del copiloto (leer repo, buscar, revisar) como un servidor MCP propio, para que cualquier cliente MCP (incluido un IDE) las consuma. | 🔴 Próximamente |
+| Bonus | Fecha | Episodio | Qué construimos | Video |
+|-------|-------|----------|-----------------|-------|
+| ⭐ | Nov 11 | **El copiloto como servidor MCP** | Exponer las tools del copiloto (leer repo, buscar, revisar) como un servidor MCP propio, para que cualquier cliente MCP (incluido un IDE) las consuma. | 🔴 Próximamente |
 
 ## Estructura del repo
 
@@ -44,6 +44,7 @@ Copiloto-de-Codigo/
 ├── README.md                       # esta página: historia + roadmap + links
 ├── Ep.1 - El primer Copiloto/      # Semana 1 — primer agente con tools + evaluación
 ├── Ep.2 - Un copiloto que recuerda/ # Semana 2 — memoria de sesión, persistencia y poda
+├── Ep.3 - Que entienda todo el repo/ # Semana 3 — RAG del codebase + servicio FastAPI (streaming)
 └── ...                             # las siguientes semanas se agregan aquí
 ```
 
@@ -72,6 +73,13 @@ Le damos memoria al copiloto como decisión de arquitectura: memoria de sesión 
 
 - 📺 **Video:** https://www.youtube.com/live/ZVgf1NWOCE4
 - 📂 **Código:** [`Ep.2 - Un copiloto que recuerda/`](./Ep.2%20-%20Un%20copiloto%20que%20recuerda/)
+
+### Episodio 3 — Que entienda todo el repo
+
+El copiloto pasa de leer archivos sueltos a entender el **repositorio completo** y sale de la terminal para vivir detrás de una API. Tres capas nuevas: **RAG de código** (indexamos el codebase en un índice vectorial local con FAISS y lo consultamos con la tool `search_code`; LangChain solo recupera, Strands orquesta), **memoria nativa del SDK** respaldada en **Supabase** (extendemos `SessionRepository` y enchufamos `RepositorySessionManager`), y un **servicio HTTP con FastAPI** (`POST /index` para procesar un repo, `POST /analyze` para la revisión estática, y `POST /chat` en streaming con memoria por `session_id`).
+
+- 📺 **Video:** https://www.youtube.com/live/7Y6rhrgZT2s
+- 📂 **Código:** [`Ep.3 - Que entienda todo el repo/`](./Ep.3%20-%20Que%20entienda%20todo%20el%20repo/)
 
 ---
 

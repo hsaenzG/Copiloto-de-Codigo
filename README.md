@@ -45,6 +45,7 @@ Copiloto-de-Codigo/
 ├── Ep.1 - El primer Copiloto/      # Semana 1 — primer agente con tools + evaluación
 ├── Ep.2 - Un copiloto que recuerda/ # Semana 2 — memoria de sesión, persistencia y poda
 ├── Ep.3 - Que entienda todo el repo/ # Semana 3 — RAG del codebase + servicio FastAPI (streaming)
+├── Ep.4 - De uno a muchos/          # Semana 4 — equipo de agentes especialistas con Strands Graph
 └── ...                             # las siguientes semanas se agregan aquí
 ```
 

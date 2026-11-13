@@ -1,0 +1,32 @@
+# Core agent orchestration
+strands-agents>=1.64.0,<2.0.0
+strands-agents-tools>=0.1.0
+
+# HTTP client for OSV.dev SCA queries
+requests>=2.31.0
+
+# CRT extra is required to use profiles created by `aws login`
+# (the login credential provider). Without it, boto3 raises a
+# "Missing Dependency" error when reading such a profile.
+botocore[crt]>=1.34.0
+
+# AST parsing (multi-language). Core runtime + per-language grammars.
+# Grammars are optional at runtime: analyze_structure falls back to regex
+# heuristics when a grammar is not installed.
+tree-sitter>=0.23.0
+tree-sitter-python>=0.23.0
+tree-sitter-javascript>=0.23.0
+
+# --- Episode 3: RAG (retrieval only) ----------------------------------------
+# LangChain is used EXCLUSIVELY as the retrieval layer (index + return
+# fragments). There is no LangChain agent/chain: Strands is the only
+# orchestration layer.
+langchain-aws>=0.2.0            # BedrockEmbeddings (stay on Bedrock)
+langchain-community>=0.3.0      # FAISS vector store integration
+langchain-text-splitters>=0.3.0 # RecursiveCharacterTextSplitter (file chunking)
+faiss-cpu>=1.8.0               # local vector index (CPU is enough for one repo)
+
+# --- Episode 3: HTTP service + native-SDK memory backend --------------------
+fastapi>=0.115.0              # POST /chat streaming endpoint
+uvicorn>=0.30.0              # ASGI server for the API
+supabase>=2.7.0             # managed PostgreSQL backend for native SDK memory

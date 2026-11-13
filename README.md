@@ -23,7 +23,7 @@ Cada semana el agente crece: empezamos con un primer copiloto con tools, y termi
 | 1 | Ago 26 | **El primer copiloto (con el pie en alto)** | Agente que responde preguntas sobre código + tools con `@tool` (leer archivo, listar repo) + set básico de evaluación. Setup del repo y del proyecto. | 200→300 | [▶️ Ver live](https://www.youtube.com/live/sOdSN-Of5gE) |
 | 2 | Sep 9 | **Un copiloto que recuerda** | Memoria del contexto del repo y de la conversación: session managers, persistencia entre sesiones, poda de context window. | 300 | [▶️ Ver live](https://www.youtube.com/live/ZVgf1NWOCE4) |
 | 3 | Sep 16 | **Que entienda todo el repo** | Ingerir el codebase como base de conocimiento (RAG) y exponer el copiloto como servicio con FastAPI (streaming, errores, timeouts). | 300 | [▶️ Ver live](https://www.youtube.com/live/7Y6rhrgZT2s) |
-| 4 | Oct 7 | **De uno a muchos: equipo de agentes** | Dividir en agentes especializados (review / seguridad / documentación); agents-as-tools vs. graph vs. swarm; estado compartido y manejo de fallos. | 300 | 🔴 Próximamente |
+| 4 | Oct 7 | **De uno a muchos: equipo de agentes** | Dividir en agentes especializados (review / seguridad / documentación); agents-as-tools vs. graph vs. swarm; estado compartido y manejo de fallos. | 300 | 📝 Sin live, solo artículo |
 | 5 | Oct 14 | **Un copiloto con frenos** | Guardrails de input/output: no filtrar secretos ni credenciales, detección de PII, mantenerse en el scope del repo; Amazon Bedrock Guardrails. | 300 | 🔴 Próximamente |
 | 6 | Oct 21 | **¿Qué está haciendo mi copiloto?** | Instrumentar el agent loop con OpenTelemetry; métricas de tokens/latencia/éxito; dashboards y alertas en CloudWatch. | 300 | 🔴 Próximamente |
 | 7 | Oct 28 | **¿Revisa bien de verdad?** | Benchmarks de las respuestas y reviews del copiloto, LLM-as-judge, regression testing e integración en CI/CD. | 300 | 🔴 Próximamente |
@@ -45,6 +45,7 @@ Copiloto-de-Codigo/
 ├── Ep.1 - El primer Copiloto/      # Semana 1 — primer agente con tools + evaluación
 ├── Ep.2 - Un copiloto que recuerda/ # Semana 2 — memoria de sesión, persistencia y poda
 ├── Ep.3 - Que entienda todo el repo/ # Semana 3 — RAG del codebase + servicio FastAPI (streaming)
+├── Ep.4 - De uno a muchos/          # Semana 4 — equipo de agentes especialistas con Strands Graph
 └── ...                             # las siguientes semanas se agregan aquí
 ```
 
@@ -80,6 +81,13 @@ El copiloto pasa de leer archivos sueltos a entender el **repositorio completo**
 
 - 📺 **Video:** https://www.youtube.com/live/7Y6rhrgZT2s
 - 📂 **Código:** [`Ep.3 - Que entienda todo el repo/`](./Ep.3%20-%20Que%20entienda%20todo%20el%20repo/)
+
+### Episodio 4 — De uno a muchos: equipo de agentes
+
+Este episodio no tiene live: se cuenta en un artículo. Dividimos el agente de nueve tools en cuatro especialistas (`ingestor`, `security_analyst`, `code_reviewer` y `doc_writer`), cada uno con un prompt corto y solo sus tools, y los coordinamos con un **Graph de Strands**: la ingesta primero, seguridad y revisión en paralelo, y la documentación al final. Incluye el criterio para elegir entre agents-as-tools, graph y swarm, cómo viaja el estado entre agentes, y qué pasa cuando un especialista falla o se pasa de su timeout (con un reporte parcial en vez de perder todo el trabajo).
+
+- 📝 **Artículo:** próximamente en Builder Center
+- 📂 **Código:** [`Ep.4 - De uno a muchos/`](./Ep.4%20-%20De%20uno%20a%20muchos/)
 
 ---
 

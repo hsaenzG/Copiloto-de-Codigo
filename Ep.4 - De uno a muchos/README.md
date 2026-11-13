@@ -10,7 +10,7 @@ SDK** y **Amazon Bedrock (Amazon Nova Pro)**.
 > **Graph** de Strands. Nada del Ep.1, Ep.2 ni Ep.3 se rompe: el agente único,
 > el modo offline y la API siguen igual.
 
-📺 Canal: [Soy Hazel Sáenz](https://www.youtube.com/@hazelsaenzG)
+📝 Este episodio no tiene live: se cuenta en un artículo. Los episodios con video están en el canal [Soy Hazel Sáenz](https://www.youtube.com/@hazelsaenzG).
 
 ## Qué agrega el Episodio 4
 
